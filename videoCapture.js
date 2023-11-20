@@ -83,7 +83,7 @@ class VideoCapture {
       try {
         this.recording = true
         // 不开启声音，并且强制使用前置摄像头
-        const options1 = { audio: false, video: { facingMode: 'user', frameRate:16, width: 256}}
+        const options1 = { audio: false, video: { facingMode: 'user', frameRate:16, width: {min:240,max:480}}}
         const options2 = { audio: false, video: { facingMode: 'user', frameRate:16, width: 512}}
         let stream = null
         try {
