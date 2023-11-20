@@ -83,8 +83,16 @@ class VideoCapture {
       try {
         this.recording = true
         // 不开启声音，并且强制使用前置摄像头
-        const options = { audio: false, video: { facingMode: 'user', frameRate:16, width: {min:320, max:512}}}
-        const stream = await navigator.mediaDevices.getUserMedia(options)
+        const options1 = { audio: false, video: { facingMode: 'user', frameRate:16, width: 320}}
+        const options2 = { audio: false, video: { facingMode: 'user', frameRate:16, width: 640}}
+        let stream = null
+        try {
+          stream = await navigator.mediaDevices.getUserMedia(options1)
+        } catch(err){
+          this._debug('【VideoCapture】获取视频流与录制器', err)
+          stream = await navigator.mediaDevices.getUserMedia(options2)
+        }
+        
         this.mediaTrack = stream.getTracks()[0]
         if ('srcObject' in this.video) {
           this.video.srcObject = stream
